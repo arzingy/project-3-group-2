@@ -13,3 +13,7 @@ This project offers a window into what lies beneath, combining historical data w
 - :passenger_ship: Famous wrecks that captured global attention
 
   Join us as we navigate the submerged world of maritime history, one wreck at a time.
+
+  Note:
+  - Need to be running Python 10 or older in order to run
+  - https://datahub.admiralty.co.uk/portal/home/item.html?id=4dbf2ace22bf4f9785fb445d0593bc2c
