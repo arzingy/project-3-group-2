@@ -8,7 +8,7 @@ This project offers a window into what lies beneath, combining historical data w
 - :earth_africa: Interactive maps pinpointing wreck locations
 - :straight_ruler: Depth analysis of where these vessels rest
 - :anchor: Causes of wreckage across time and region
-- :ocean: Weather conditions at the time of sinking
+- :ocean: Weather conditions at the time of sinking (Potentially)
 - :hole: The deepest shipwreck ever recorded
 - :passenger_ship: Famous wrecks that captured global attention
 
