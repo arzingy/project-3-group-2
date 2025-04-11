@@ -49,7 +49,13 @@ const addShipwrecks = (data, shipwreckLayer) => {
 
   data.forEach(point => {
     const marker = L.marker([point.lat, point.lon])
-      .bindPopup(`<b>${point.wreck_id}</b><br>Lat: ${point.lat}<br>Lon: ${point.lon}`);
+      .bindPopup(`<b>${point.wreck_name ? point.wreck_name : point.wreck_id}
+        </b><br>Lat: ${point.lat}
+        <br>Lon: ${point.lon}
+        ${point.vessel_type ? `<br>Vessel Type: ${point.vessel_type}` : ''}
+        ${point.flag ? `<br>Flag: ${point.flag}` : ''}
+        ${point.water_depth ? `<br>Depth: ${point.water_depth}` : ''}
+        ${point.year_sunk ? `<br>Year: ${point.year_sunk}` : ''}`);
     markers.addLayer(marker); // Add marker to cluster group
   });
 
