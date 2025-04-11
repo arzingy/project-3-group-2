@@ -6,25 +6,26 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Step 3: Fetch the JSON file
-fetch('../Resources/points.json') // Replace 'shipwrecks.json' with the actual path to your JSON file
+// Step 3: Initialize the marker cluster group
+const markers = L.markerClusterGroup(); // Create a new cluster group
+
+// Step 4: Fetch the JSON file
+fetch('../Resources/points.json') // Replace 'points.json' with the actual path to your JSON file
   .then(response => {
     if (!response.ok) throw new Error("Failed to load JSON file");
     return response.json(); // Parse JSON
   })
   .then(data => {
-    // Step 4: Loop through the shipwrecks and add markers to the map
-    for (let i = 0; i < 94000; i++) {
-      L.marker([data[i].lat, data[i].lon])
-        .bindPopup(`<b>${data[i].wreck_id}</b><br>Lat: ${data[i].lat}<br>Lon: ${data[i].lon}`)
-        .addTo(map);
-      console.log('ship loaded');
+    // Step 5: Loop through the data points and add markers to the cluster group
+    for (let i = 0; i < data.length; i++) {
+      const marker = L.marker([data[i].lat, data[i].lon])
+        .bindPopup(`<b>${data[i].wreck_id}</b><br>Lat: ${data[i].lat}<br>Lon: ${data[i].lon}`);
+      
+      markers.addLayer(marker); // Add marker to the cluster group
     }
-    // data.forEach(shipwreck => {
-    //   L.marker([shipwreck.lat, shipwreck.lon])
-    //     .bindPopup(`<b>${shipwreck.name}</b><br>Lat: ${shipwreck.lat}<br>Lon: ${shipwreck.lon}`)
-    //     .addTo(map);
-    //   console.log('ship loaded');
-    // });
+    
+    // Step 6: Add the cluster group to the map
+    map.addLayer(markers);
+    console.log('All points clustered and loaded');
   })
   .catch(error => console.error('Error loading JSON:', error));
