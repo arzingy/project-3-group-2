@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Bermuda Triangle",
+        "points": [
+            {
+                "name": "Miami, Florida",
+                "latitude": 25.7617,
+                "longitude": -80.1918
+            },
+            {
+                "name": "San Juan, Puerto Rico",
+                "latitude": 18.4655,
+                "longitude": -66.1057
+            },
+            {
+                "name": "Bermuda",
+                "latitude": 32.3078,
+                "longitude": -64.7505
+            }
+        ]
+    },
+    {
+        "name": "Alaska Triangle",
+        "points": [
+            {
+                "name": "Anchorage",
+                "latitude": 61.2176,
+                "longitude": -149.8997
+            },
+            {
+                "name": "Juneau",
+                "latitude": 58.3019,
+                "longitude": -134.4197
+            },
+            {
+                "name": "Barrow (Utqiaġvik)",
+                "latitude": 71.2906,
+                "longitude": -156.7886
+            }
+        ]
+    },
+    {
+        "name": "Michigan Triangle",
+        "points": [
+            {
+                "name": "Ludington, Michigan",
+                "latitude": 43.9550,
+                "longitude": -86.4526
+            },
+            {
+                "name": "Benton Harbor, Michigan",
+                "latitude": 42.1167,
+                "longitude": -86.4542
+            },
+            {
+                "name": "Manitowoc, Wisconsin",
+                "latitude": 44.0886,
+                "longitude": -87.6576
+            }
+        ]
+    },
+    {
+        "name": "Dragon's Triangle",
+        "points": [
+            {
+                "name": "Tokyo, Japan",
+                "latitude": 35.6895,
+                "longitude": 139.6917
+            },
+            {
+                "name": "Guam",
+                "latitude": 13.4443,
+                "longitude": 144.7937
+            },
+            {
+                "name": "Palau",
+                "latitude": 7.5149,
+                "longitude": 134.5825
+            }
+        ]
+    }
+]
