@@ -78,6 +78,17 @@ const addTriangles = (data, trianglesLayer) => {
   });
 };
 
+function submitFunction() {
+  const input1 = document.getElementById("Start Date").value;
+  const input2 = document.getElementById("End Date").value;
+
+  // Now you can use input1Value and input2Value as needed
+  console.log("Start Year:", input1);
+  console.log("End Year:", input2);
+}
+
+
+
 // Main logic
 (() => {
   const { map, baseMaps } = initializeMap();
