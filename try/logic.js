@@ -13,11 +13,27 @@ const initializeMap = () => {
     maxZoom: 18
   });
 
+  var earthAtNight = L.tileLayer('https://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}', {
+    attribution: 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System (<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
+    bounds: [[-85.0511287776, -179.999999975], [85.0511287776, 179.999999975]],
+    minZoom: 1,
+    maxZoom: 8,
+    format: 'jpg',
+    time: '',
+    tilematrixset: 'GoogleMapsCompatible_Level'
+  });
+
+  var worldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+  });
+
   // Add default layer and define base layers
   satelliteLayer.addTo(map);
   const baseMaps = {
     "Satellite": satelliteLayer,
-    "Streets": streetLayer
+    "Streets": streetLayer,
+    "Earth At Night": earthAtNight,
+    "World Imagery": worldImagery
   };
 
   return { map, baseMaps };
@@ -128,6 +144,7 @@ function submitFunction() {
 
   // Add layer control
   L.control.layers(baseMaps, overlays).addTo(map);
+  
 
   // Fetch and add shipwrecks
   fetchData('../Resources/points.json', data => addShipwrecks(data, shipwrecks));
@@ -135,5 +152,5 @@ function submitFunction() {
 
   // Fetch and add triangles
   fetchData('../Resources/triangles.json', data => addTriangles(data, triangles));
-  triangles.addTo(map);
+  //triangles.addTo(map);
 })();
