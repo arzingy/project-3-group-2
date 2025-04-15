@@ -71,8 +71,8 @@ const addTriangles = (data, trianglesLayer) => {
       color: 'red',
       weight: 2,
       fillOpacity: 0.3
-    }).bindPopup(`<b>${triangle.name}</b>`);
-
+    }).bindPopup(`<b>${triangle.name}</b>
+      <br><b>Story:</b><br>${triangle.story}`);
     trianglesLayer.addLayer(polygon); // Add polygon to triangles layer
     console.log(`Polygon for ${triangle.name} added to triangles layer group`);
   });
@@ -81,6 +81,11 @@ const addTriangles = (data, trianglesLayer) => {
 function submitFunction() {
   const input1 = document.getElementById("Start Date").value;
   const input2 = document.getElementById("End Date").value;
+<<<<<<< HEAD
+  console.log("Start Year:", input1);
+  console.log("End Year:", input2);
+};
+=======
 
   // Now you can use input1Value and input2Value as needed
   console.log("Start Year:", input1);
@@ -88,6 +93,7 @@ function submitFunction() {
 }
 
 
+>>>>>>> efc3d84b6a88fb6ff9e81bc42fd233b59f51665c
 
 // Main logic
 (() => {
