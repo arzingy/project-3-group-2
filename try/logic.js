@@ -43,19 +43,50 @@ const fetchData = async (url, callback) => {
   }
 };
 
-// Step 4: Add shipwreck markers
+// // Step 4: Add shipwreck markers
+
+// const addShipwrecks = (data, shipwreckLayer) => {
+//   const markers = L.markerClusterGroup(); // Cluster group for shipwrecks
+
+//   data.forEach(point => {
+//     const marker = L.marker([point.lat, point.lon])
+//       .bindPopup(`<b>${point.wreck_name ? point.wreck_name : point.wreck_id}
+//         </b><br>Lat: ${point.lat}
+//         <br>Lon: ${point.lon}
+//         ${point.vessel_type ? `<br>Vessel Type: ${point.vessel_type}` : ''}
+//         ${point.flag ? `<br>Flag: ${point.flag}` : ''}
+//         ${point.water_depth ? `<br>Depth: ${point.water_depth}` : ''}
+//         ${point.year_sunk ? `<br>Year: ${point.year_sunk}` : ''}`);
+//     markers.addLayer(marker); // Add marker to cluster group
+//   });
+
+//   shipwreckLayer.addLayer(markers); // Add cluster group to shipwrecks layer
+//   console.log('Shipwrecks added to layer group');
+// };
+
 const addShipwrecks = (data, shipwreckLayer) => {
   const markers = L.markerClusterGroup(); // Cluster group for shipwrecks
 
   data.forEach(point => {
+    const wreckName = point.wreck_name || point.wreck_id || 'Unknown';
+    const lat = point.lat ?? 'Unknown';
+    const lon = point.lon ?? 'Unknown';
+    const vesselType = point.vessel_type || 'Unknown';
+    const flag = point.flag || 'Unknown';
+    const waterDepth = point.water_depth || 'Unknown';
+    const yearSunk = point.year_sunk || 'Unknown';
+
     const marker = L.marker([point.lat, point.lon])
-      .bindPopup(`<b>${point.wreck_name ? point.wreck_name : point.wreck_id}
-        </b><br>Lat: ${point.lat}
-        <br>Lon: ${point.lon}
-        ${point.vessel_type ? `<br>Vessel Type: ${point.vessel_type}` : ''}
-        ${point.flag ? `<br>Flag: ${point.flag}` : ''}
-        ${point.water_depth ? `<br>Depth: ${point.water_depth}` : ''}
-        ${point.year_sunk ? `<br>Year: ${point.year_sunk}` : ''}`);
+      .bindPopup(
+        `<b>${wreckName}</b><br>
+        Lat: ${lat}<br>
+        Lon: ${lon}<br>
+        Vessel Type: ${vesselType}<br>
+        Flag: ${flag}<br>
+        Depth: ${waterDepth}<br>
+        Year: ${yearSunk}`
+      );
+
     markers.addLayer(marker); // Add marker to cluster group
   });
 
