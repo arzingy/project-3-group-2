@@ -93,8 +93,8 @@ const addShipwrecks = (data, shipwreckLayer) => {
 
   data.forEach(point => {
     if(
-      point.year_sunk >= input1,
-      point.year_sunk <= input2
+      point.year_sunk >= 1900 &&
+      point.year_sunk <= 1900
     ){
     const wreckName = point.wreck_name || point.wreck_id || 'Unknown';
     const lat = point.lat ?? 'Unknown';
