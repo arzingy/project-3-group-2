@@ -80,10 +80,22 @@ const fetchData = async (url, callback) => {
 //   console.log('Shipwrecks added to layer group');
 // };
 
+function submitFunction() {
+  const input1 = document.getElementById("Start Date").value;
+  const input2 = document.getElementById("End Date").value;
+  console.log("Start Year:", input1);
+  console.log("End Year:", input2);
+};
+
 const addShipwrecks = (data, shipwreckLayer) => {
   const markers = L.markerClusterGroup(); // Cluster group for shipwrecks
 
+
   data.forEach(point => {
+    if(
+      point.year_sunk >= input1,
+      point.year_sunk <= input2
+    ){
     const wreckName = point.wreck_name || point.wreck_id || 'Unknown';
     const lat = point.lat ?? 'Unknown';
     const lon = point.lon ?? 'Unknown';
@@ -91,6 +103,7 @@ const addShipwrecks = (data, shipwreckLayer) => {
     const flag = point.flag || 'Unknown';
     const waterDepth = point.water_depth || 'Unknown';
     const yearSunk = point.year_sunk || 'Unknown';
+
 
     const marker = L.marker([point.lat, point.lon])
       .bindPopup(
@@ -103,12 +116,15 @@ const addShipwrecks = (data, shipwreckLayer) => {
         Year: ${yearSunk}`
       );
 
+
     markers.addLayer(marker); // Add marker to cluster group
-  });
+  }});
+
 
   shipwreckLayer.addLayer(markers); // Add cluster group to shipwrecks layer
   console.log('Shipwrecks added to layer group');
 };
+
 
 // Step 5: Add triangle polygons
 const addTriangles = (data, trianglesLayer) => {
@@ -123,13 +139,6 @@ const addTriangles = (data, trianglesLayer) => {
     trianglesLayer.addLayer(polygon); // Add polygon to triangles layer
     console.log(`Polygon for ${triangle.name} added to triangles layer group`);
   });
-};
-
-function submitFunction() {
-  const input1 = document.getElementById("Start Date").value;
-  const input2 = document.getElementById("End Date").value;
-  console.log("Start Year:", input1);
-  console.log("End Year:", input2);
 };
 
 // Main logic
