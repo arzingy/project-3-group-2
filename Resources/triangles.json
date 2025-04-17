@@ -17,7 +17,8 @@
                 "latitude": 32.3078,
                 "longitude": -64.7505
             }
-        ]
+        ],
+        "story": "The Bermuda Triangle is a loosely defined region in the western part of the North Atlantic Ocean where a number of aircraft and ships are said to have disappeared under mysterious circumstances."
     },
     {
         "name": "Alaska Triangle",
@@ -37,7 +38,8 @@
                 "latitude": 71.2906,
                 "longitude": -156.7886
             }
-        ]
+        ],
+        "story": "The Alaska Triangle is a region of wilderness in Alaska where a number of aircraft and boats have disappeared under mysterious circumstances. It is often compared to the Bermuda Triangle."
     },
     {
         "name": "Michigan Triangle",
@@ -57,7 +59,8 @@
                 "latitude": 44.0886,
                 "longitude": -87.6576
             }
-        ]
+        ],
+        "story": "The Michigan Triangle is a region of Lake Michigan where a number of ships and aircraft have disappeared under mysterious circumstances. It is often compared to the Bermuda Triangle."
     },
     {
         "name": "Dragon's Triangle",
@@ -77,6 +80,7 @@
                 "latitude": 7.5149,
                 "longitude": 134.5825
             }
-        ]
+        ],
+        "story": "The Dragon's Triangle, also known as the Pacific Bermuda Triangle, is a region of the Pacific Ocean where a number of ships and aircraft have disappeared under mysterious circumstances. It is located near Japan and is often compared to the Bermuda Triangle."
     }
 ]
