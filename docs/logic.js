@@ -28,17 +28,12 @@ const initializeMap = () => {
     tilematrixset: 'GoogleMapsCompatible_Level'
   });
 
-  var worldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-  });
-
   // Add default layer and define base layers
   streetLayer.addTo(map);
   let baseMaps = {
     "Streets": streetLayer,
     "Satellite": satelliteLayer,
-    "Earth At Night": earthAtNight,
-    "World Imagery": worldImagery
+    "Earth At Night": earthAtNight
   };
 
   console.log('Map successfully initialized!')
