@@ -3,11 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Basic Map</title>
-
-  <input type="text"  placeholder="Start Year" id="Start Date">
-  <input type="text"  placeholder="End Year" id="End Date">
-  <button onclick="addShipwrecks()">Submit</button>
+  <title>Shipwrecks Map</title>
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -33,6 +29,14 @@
 <body>
   <!-- The div where we'll insert our map -->
   <div id="map"></div>
+
+  <div id="yearFilterContainer">
+    <div id="yearFilterTitle">Year Filter</div>
+    <input type="text" placeholder="Start Year" id="Start Date">
+    <input type="text" placeholder="End Year" id="End Date">
+    <button id="submitButton">Submit</button>
+    <button id="resetButton">Reset</button>
+  </div>
 
   <!-- JavaScript files -->
   <script type="text/javascript" src="data.js"></script>

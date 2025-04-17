@@ -14,3 +14,52 @@ html {
 h1 {
   text-align: center;
 }
+
+/* Styles for the rectangular container */
+#yearFilterContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  width: 150px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+/* Title styling */
+#yearFilterTitle {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Input and button styling */
+#yearFilterContainer input {
+  display: block;
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#yearFilterContainer button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#yearFilterContainer button:hover {
+  background-color: #0056b3;
+}
