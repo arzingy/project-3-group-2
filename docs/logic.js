@@ -27,17 +27,12 @@ const initializeMap = () => {
     tilematrixset: 'GoogleMapsCompatible_Level'
   });
 
-  var worldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-  });
-
   // Add default layer and define base layers
   satelliteLayer.addTo(map);
   const baseMaps = {
     "Satellite": satelliteLayer,
     "Streets": streetLayer,
-    "Earth At Night": earthAtNight,
-    "World Imagery": worldImagery
+    "Earth At Night": earthAtNight
   };
 
   console.log('Map successfully initialized!')
@@ -102,7 +97,7 @@ const addShipwrecks = (shipwreckLayer) => {
   document.getElementById("resetButton").disabled = !filter;
 
   shipwreckLayer.addLayer(markers); // Add cluster group to shipwrecks layer
-  console.log('Shipwrecks added to layer group');
+  console.log('Shipwreck successfully added!');
 };
 
 // Step 5: Add triangle polygons
