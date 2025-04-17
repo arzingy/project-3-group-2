@@ -17,6 +17,9 @@ h1 {
 
 /* Styles for the rectangular container */
 #yearFilterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: fixed;
   bottom: 20px;
   right: 10px;
@@ -49,9 +52,10 @@ h1 {
 }
 
 #yearFilterContainer button {
-  display: block;
-  width: 100%;
-  padding: 10px;
+  flex: 1 1 auto;
+  margin: 5px;
+  width: calc(100% - 20px);
+  padding: 8px;
   background-color: #007BFF;
   color: white;
   border: none;
