@@ -66,7 +66,7 @@ let fetchData = async (url) => {
       hotspotsData = data;
       console.log('Hotspots data successfully fetched and stored!')
     }
-    else if (url == '../wreck filters for leaflet/valuable_cargo_wrecks_nav.json') {
+    else if (url == '../Resources/circumstances.json') {
       circumstanceData = data;
       console.log('Circumstance data successfully fetched and stored!')
     }
@@ -91,7 +91,7 @@ let addShipwrecks = (shipwreckLayer) => {
   let filter = (startYear != 0);
 
   shipwreckData.forEach(point => {
-    
+
     if (!filter || (
       filter && point.year_sunk && point.year_sunk >= startYear && point.year_sunk <= endYear
     )) {
@@ -100,20 +100,22 @@ let addShipwrecks = (shipwreckLayer) => {
       let lon = point.lon ?? 'Unknown';
       let vesselType = point.vessel_type || 'Unknown';
       let flag = point.flag || 'Unknown';
+      let cargo = point.cargo || 'Unknown';
       let waterDepth = point.water_depth || 'Unknown';
       let yearSunk = point.year_sunk || 'Unknown';
 
       let marker = L.marker([point.lat, point.lon])
-      .bindPopup(
-        `<b>${wreckName}</b><br>
+        .bindPopup(
+          `<b>${wreckName}</b><br>
         Lat: ${lat}<br>
         Lon: ${lon}<br>
         Vessel Type: ${vesselType}<br>
         Flag: ${flag}<br>
+        Cargo: ${cargo}<br>
         Depth: ${waterDepth}<br>
         Year: ${yearSunk}`
-      );
-    markers.addLayer(marker); // Add marker to cluster group
+        );
+      markers.addLayer(marker); // Add marker to cluster group
     }
   });
 
@@ -153,7 +155,7 @@ let addHotspots = (hotspotsLayer) => {
       radius: Math.sqrt(wreckCount) * 1600
     }).bindPopup(`<b>${areaName}</b>
       <br>Wreck count: ${wreckCount}`);
-    
+
     hotspotsLayer.addLayer(hotspotCircle);
   });
 
@@ -173,11 +175,10 @@ let addCircumstances = (circumstancesLayer) => {
         <br>${circumstan}`
       );
     circumstancesLayer.addLayer(circumstanceMarkers); // Add marker to cluster group
-    console.log(`Circumstances Successfully Added`);
-
-
-    }
-  )};
+  });
+  
+  console.log(`Circumstances successfully added!`);
+};
 
 
 // Function to reset and show all shipwrecks
@@ -189,7 +190,7 @@ let resetShipwrecks = (shipwreckLayer) => {
   submitBtn.style.backgroundColor = "gray";
   document.getElementById("resetButton").disabled = true;
   resetBtn.style.backgroundColor = "gray";
-  
+
   shipwreckLayer.clearLayers(); // Clear existing markers
   // shipwreckLayer.remove(); // Remove the layer from the map
 
@@ -209,9 +210,9 @@ let resetBtn = document.getElementById('resetButton');
 function toggleButtons() {
   let startFilled = startDateInput.value !== '';
   let endFilled = endDateInput.value !== '';
-  
+
   let enable = startFilled && endFilled;
-  
+
   submitBtn.disabled = !enable;
   resetBtn.disabled = !enable;
 
@@ -235,14 +236,14 @@ document.addEventListener("DOMContentLoaded", () => {
     "Circumstances": circumstances
   };
 
-  if (submitBtn.disabled==true) {
+  if (submitBtn.disabled == true) {
     submitBtn.style.backgroundColor = "gray";
   }
   else {
     submitBtn.style.backgroundColor = "#007BFF";
   }
 
-  if (resetBtn.disabled==true) {
+  if (resetBtn.disabled == true) {
     resetBtn.style.backgroundColor = "gray";
   }
   else {
@@ -258,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  fetchData('../wreck filters for leaflet/valuable_cargo_wrecks_nav.json').then(() => {
+  fetchData('../Resources/circumstances.json').then(() => {
     if (circumstanceData) {
       addCircumstances(circumstances);
     }
