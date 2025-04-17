@@ -2,6 +2,7 @@
 let shipwreckData = null;
 let trianglesData = null;
 let hotspotsData = null;
+let circumstanceData = null;
 
 // Initialize the map
 let initializeMap = () => {
@@ -45,9 +46,10 @@ let createOverlays = () => {
   let shipwrecks = new L.LayerGroup();
   let triangles = new L.LayerGroup();
   let hotspots = new L.LayerGroup();
+  let circumstances = new L.LayerGroup();
 
   console.log('Overlays successfully created!')
-  return { shipwrecks, triangles, hotspots };
+  return { shipwrecks, triangles, hotspots, circumstances };
 };
 
 // Step 3: Function to fetch and store data
@@ -63,6 +65,10 @@ let fetchData = async (url) => {
     else if (url == '../Resources/hotspots.json') {
       hotspotsData = data;
       console.log('Hotspots data successfully fetched and stored!')
+    }
+    else if (url == '../wreck filters for leaflet/valuable_cargo_wrecks_nav.json') {
+      circumstanceData = data;
+      console.log('Circumstance data successfully fetched and stored!')
     }
     else {
       trianglesData = data;
@@ -154,6 +160,26 @@ let addHotspots = (hotspotsLayer) => {
   console.log('Hotspots successfully added!');
 };
 
+let addCircumstances = (circumstancesLayer) => {
+  circumstanceData.forEach(circumstance => {
+    let wreckid = circumstance.wreck_id;
+    let circumstan = circumstance.circumstan_known;
+
+
+    let circumstanceMarkers = L.marker([circumstance.latitude, circumstance.longitude])
+      .bindPopup(
+        `<b>${wreckid}</b><br>
+        Circumstances:
+        <br>${circumstan}`
+      );
+    circumstancesLayer.addLayer(circumstanceMarkers); // Add marker to cluster group
+    console.log(`Circumstances Successfully Added`);
+
+
+    }
+  )};
+
+
 // Function to reset and show all shipwrecks
 let resetShipwrecks = (shipwreckLayer) => {
 
@@ -200,12 +226,13 @@ endDateInput.addEventListener('input', toggleButtons);
 // Main logic to initialize buttons
 document.addEventListener("DOMContentLoaded", () => {
   let { map, baseMaps } = initializeMap();
-  let { shipwrecks, triangles, hotspots } = createOverlays();
+  let { shipwrecks, triangles, hotspots, circumstances } = createOverlays();
 
   let overlays = {
     "Shipwrecks": shipwrecks,
     "Triangles": triangles,
-    "Hotspots": hotspots
+    "Hotspots": hotspots,
+    "Circumstances": circumstances
   };
 
   if (submitBtn.disabled==true) {
@@ -231,11 +258,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+  fetchData('../wreck filters for leaflet/valuable_cargo_wrecks_nav.json').then(() => {
+    if (circumstanceData) {
+      addCircumstances(circumstances);
+    }
+  })
+
   fetchData('../Resources/hotspots.json').then(() => {
     if (hotspotsData) {
       addHotspots(hotspots);
     }
   })
+
 
   // Fetch data only once
   fetchData('../Resources/points.json').then(() => {
