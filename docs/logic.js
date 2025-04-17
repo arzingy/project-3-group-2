@@ -164,19 +164,19 @@ let addHotspots = (hotspotsLayer) => {
 
 let addCircumstances = (circumstancesLayer) => {
   circumstanceData.forEach(circumstance => {
-    let wreckid = circumstance.wreck_id;
+    let wreckName = circumstance.name || circumstance.wreck_id || 'Unknown';
     let circumstan = circumstance.circumstan_known;
 
 
     let circumstanceMarkers = L.marker([circumstance.latitude, circumstance.longitude])
       .bindPopup(
-        `<b>${wreckid}</b><br>
+        `<b>${wreckName}</b><br>
         Circumstances:
         <br>${circumstan}`
       );
     circumstancesLayer.addLayer(circumstanceMarkers); // Add marker to cluster group
   });
-  
+
   console.log(`Circumstances successfully added!`);
 };
 
