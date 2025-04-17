@@ -1,5 +1,6 @@
 // Global variable to store shipwreck data
 let shipwreckData = null;
+let trianglesData = null;
 
 // Step 1: Initialize the map
 const initializeMap = () => {
@@ -52,33 +53,26 @@ const createOverlays = () => {
   return { shipwrecks, triangles };
 };
 
-// Step 3: Fetch and handle JSON data
+// Function to fetch and store data
 const fetchData = async (url) => {
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to load JSON file: ${url}`);
     const data = await response.json();
-    shipWreckData = data;
-    console.log('Shipwreck data successfully fetched and stored!');
+    if (url == '../Resources/points.json') {
+      shipwreckData = data;
+      console.log('Shipwrecks data successfully fetched and stored!');
+    }
+    else {
+      trianglesData = data;
+      console.log('Triangles data successfully fetched and stored!');
+    }
   } catch (error) {
     console.error(error);
   }
 };
 
-// Function to fetch and store data
-const fetchAndStoreData = async (url) => {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`Failed to load JSON file: ${url}`);
-    const data = await response.json();
-    shipwreckData = data; // Store the fetched data globally
-    console.log('Data successfully fetched and stored!');
-  } catch (error) {
-    console.error(error);
-  }
-};
 // Step 4: Add shipwreck markers
-
 const addShipwrecks = (shipwreckLayer) => {
 
   shipwreckLayer.clearLayers(); // Clear existing markers
@@ -87,9 +81,11 @@ const addShipwrecks = (shipwreckLayer) => {
   let startYear = parseInt(document.getElementById("Start Date").value, 10) || 0;
   let endYear = parseInt(document.getElementById("End Date").value, 10) || 0;
 
+  let filter = (startYear != 0);
+
   shipwreckData.forEach(point => {
-    if (startYear == 0 || (
-      startYear != 0 && point.year_sunk && point.year_sunk >= startYear && point.year_sunk <= endYear
+    if (!filter || (
+      filter && point.year_sunk && point.year_sunk >= startYear && point.year_sunk <= endYear
     )) {
       const marker = L.marker([point.lat, point.lon])
         .bindPopup(`<b>${point.wreck_name ? point.wreck_name : point.wreck_id}
@@ -103,8 +99,26 @@ const addShipwrecks = (shipwreckLayer) => {
     }
   });
 
+  document.getElementById("resetButton").disabled = !filter;
+
   shipwreckLayer.addLayer(markers); // Add cluster group to shipwrecks layer
   console.log('Shipwrecks added to layer group');
+};
+
+// Step 5: Add triangle polygons
+const addTriangles = (trianglesLayer) => {
+  trianglesData.forEach(triangle => {
+    const polygonCoordinates = triangle.points.map(coord => [coord.latitude, coord.longitude]);
+    const polygon = L.polygon(polygonCoordinates, {
+      color: 'red',
+      weight: 2,
+      fillOpacity: 0.3
+    }).bindPopup(`<b>${triangle.name}</b>
+      <br>History: undefined`);
+
+    trianglesLayer.addLayer(polygon);
+  });
+  console.log('Triangles successfully added!')
 };
 
 // Function to reset and show all shipwrecks
@@ -119,17 +133,24 @@ const resetShipwrecks = (shipwreckLayer) => {
 // Main logic to initialize buttons
 document.addEventListener("DOMContentLoaded", () => {
   const { map, baseMaps } = initializeMap();
-  const { shipwrecks } = createOverlays();
+  const { shipwrecks, triangles } = createOverlays();
 
   const overlays = {
-    "Shipwrecks": shipwrecks
+    "Shipwrecks": shipwrecks,
+    "Triangles": triangles
   };
 
   // Add layer control
   L.control.layers(baseMaps, overlays).addTo(map);
 
+  fetchData('../Resources/triangles.json').then(() => {
+    if (trianglesData) {
+      addTriangles(triangles);
+    }
+  })
+
   // Fetch data only once
-  fetchAndStoreData('../Resources/points.json').then(() => {
+  fetchData('../Resources/points.json').then(() => {
     if (shipwreckData) {
       addShipwrecks(shipwrecks);
     }
