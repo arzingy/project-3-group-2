@@ -1,8 +1,9 @@
-// Global variable to store shipwreck data
+// Global variables to store data
 let shipwreckData = null;
 let trianglesData = null;
+let hotspotsData = null;
 
-// Step 1: Initialize the map
+// Initialize the map
 const initializeMap = () => {
   const map = L.map('map').setView([0, 0], 2); // Center map at 0,0 with zoom level 2
 
@@ -39,13 +40,14 @@ const initializeMap = () => {
   return { map, baseMaps };
 };
 
-// Step 2: Add overlays
+// Add overlays
 const createOverlays = () => {
   const shipwrecks = new L.LayerGroup();
   const triangles = new L.LayerGroup();
+  const hotspots = new L.LayerGroup();
 
   console.log('Overlays successfully created!')
-  return { shipwrecks, triangles };
+  return { shipwrecks, triangles, hotspots };
 };
 
 // Function to fetch and store data
@@ -58,6 +60,10 @@ const fetchData = async (url) => {
       shipwreckData = data;
       console.log('Shipwrecks data successfully fetched and stored!');
     }
+    else if (url == '../Resources/hotspots.json') {
+      hotspotsData = data;
+      console.log('Hotspots data successfully fetched and stored!')
+    }
     else {
       trianglesData = data;
       console.log('Triangles data successfully fetched and stored!');
@@ -67,7 +73,7 @@ const fetchData = async (url) => {
   }
 };
 
-// Step 4: Add shipwreck markers
+// Add shipwreck markers
 const addShipwrecks = (shipwreckLayer) => {
 
   shipwreckLayer.clearLayers(); // Clear existing markers
@@ -97,10 +103,10 @@ const addShipwrecks = (shipwreckLayer) => {
   document.getElementById("resetButton").disabled = !filter;
 
   shipwreckLayer.addLayer(markers); // Add cluster group to shipwrecks layer
-  console.log('Shipwreck successfully added!');
+  console.log('Shipwrecks successfully added!');
 };
 
-// Step 5: Add triangle polygons
+// Add triangle polygons
 const addTriangles = (trianglesLayer) => {
   trianglesData.forEach(triangle => {
     const polygonCoordinates = triangle.points.map(coord => [coord.latitude, coord.longitude]);
@@ -116,6 +122,27 @@ const addTriangles = (trianglesLayer) => {
   console.log('Triangles successfully added!')
 };
 
+// Add circle polygons
+const addHotspots = (hotspotsLayer) => {
+  hotspotsData.features.forEach(hotspot => {
+    const centerCoordinates = hotspot.properties.center_coordinates;
+    const areaName = hotspot.properties.area;
+    const wreckCount = hotspot.properties.wreck_count;
+
+    const hotspotCircle = L.circle(centerCoordinates, {
+      color: 'blue',
+      weight: 2,
+      fillOpacity: 0.3,
+      radius: Math.sqrt(wreckCount) * 1600
+    }).bindPopup(`<b>${areaName}</b>
+      <br>Wreck count: ${wreckCount}`);
+    
+    hotspotsLayer.addLayer(hotspotCircle);
+  });
+
+  console.log('Hotspots successfully added!');
+};
+
 // Function to reset and show all shipwrecks
 const resetShipwrecks = (shipwreckLayer) => {
 
@@ -128,11 +155,12 @@ const resetShipwrecks = (shipwreckLayer) => {
 // Main logic to initialize buttons
 document.addEventListener("DOMContentLoaded", () => {
   const { map, baseMaps } = initializeMap();
-  const { shipwrecks, triangles } = createOverlays();
+  const { shipwrecks, triangles, hotspots } = createOverlays();
 
   const overlays = {
     "Shipwrecks": shipwrecks,
-    "Triangles": triangles
+    "Triangles": triangles,
+    "Hotspots": hotspots
   };
 
   // Add layer control
@@ -141,6 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchData('../Resources/triangles.json').then(() => {
     if (trianglesData) {
       addTriangles(triangles);
+    }
+  })
+
+  fetchData('../Resources/hotspots.json').then(() => {
+    if (hotspotsData) {
+      addHotspots(hotspots);
     }
   })
 

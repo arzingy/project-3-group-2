@@ -1,0 +1,60 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "area": "English Channel",
+                "center_coordinates": [
+                    52.039914,
+                    -0.775608
+                ],
+                "wreck_count": 39097
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "area": "Danish Straits",
+                "center_coordinates": [
+                    55.098330,
+                    12.572536
+                ],
+                "wreck_count": 3014
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "area": "Ligurian Sea",
+                "center_coordinates": [
+                    43.415292,
+                    6.489705
+                ],
+                "wreck_count": 1553
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "area": "Singapore Strait",
+                "center_coordinates": [
+                    1.333883,
+                    103.821731
+                ],
+                "wreck_count": 996
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "area": "Gulf of Gdansk",
+                "center_coordinates": [
+                    54.588579,
+                    18.575034
+                ],
+                "wreck_count": 758
+            }
+        }
+    ]
+}
