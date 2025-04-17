@@ -8,12 +8,12 @@ const initializeMap = () => {
   const map = L.map('map').setView([0, 0], 2); // Center map at 0,0 with zoom level 2
 
   // Tile layers
-  const satelliteLayer = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', {
+  let satelliteLayer = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', {
     maxZoom: 20,
     attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'
   });
 
-  const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  let streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data © OpenStreetMap contributors',
     maxZoom: 18
   });
@@ -28,12 +28,17 @@ const initializeMap = () => {
     tilematrixset: 'GoogleMapsCompatible_Level'
   });
 
+  var worldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+  });
+
   // Add default layer and define base layers
-  satelliteLayer.addTo(map);
-  const baseMaps = {
-    "Satellite": satelliteLayer,
+  streetLayer.addTo(map);
+  let baseMaps = {
     "Streets": streetLayer,
-    "Earth At Night": earthAtNight
+    "Satellite": satelliteLayer,
+    "Earth At Night": earthAtNight,
+    "World Imagery": worldImagery
   };
 
   console.log('Map successfully initialized!')
@@ -50,12 +55,12 @@ const createOverlays = () => {
   return { shipwrecks, triangles, hotspots };
 };
 
-// Function to fetch and store data
-const fetchData = async (url) => {
+// Step 3: Function to fetch and store data
+let fetchData = async (url) => {
   try {
-    const response = await fetch(url);
+    let response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to load JSON file: ${url}`);
-    const data = await response.json();
+    let data = await response.json();
     if (url == '../Resources/points.json') {
       shipwreckData = data;
       console.log('Shipwrecks data successfully fetched and stored!');
@@ -78,25 +83,36 @@ const addShipwrecks = (shipwreckLayer) => {
 
   shipwreckLayer.clearLayers(); // Clear existing markers
 
-  const markers = L.markerClusterGroup(); // Cluster group for shipwrecks
+  let markers = L.markerClusterGroup(); // Cluster group for shipwrecks
   let startYear = parseInt(document.getElementById("Start Date").value, 10) || 0;
   let endYear = parseInt(document.getElementById("End Date").value, 10) || 0;
 
   let filter = (startYear != 0);
 
   shipwreckData.forEach(point => {
+    
     if (!filter || (
       filter && point.year_sunk && point.year_sunk >= startYear && point.year_sunk <= endYear
     )) {
-      const marker = L.marker([point.lat, point.lon])
-        .bindPopup(`<b>${point.wreck_name ? point.wreck_name : point.wreck_id}
-        </b><br>Lat: ${point.lat}
-        <br>Lon: ${point.lon}
-        ${point.vessel_type ? `<br>Vessel Type: ${point.vessel_type}` : ''}
-        ${point.flag ? `<br>Flag: ${point.flag}` : ''}
-        ${point.water_depth ? `<br>Depth: ${point.water_depth}` : ''}
-        ${point.year_sunk ? `<br>Year: ${point.year_sunk}` : ''}`);
-      markers.addLayer(marker); // Add marker to cluster group
+      let wreckName = point.wreck_name || point.wreck_id || 'Unknown';
+      let lat = point.lat ?? 'Unknown';
+      let lon = point.lon ?? 'Unknown';
+      let vesselType = point.vessel_type || 'Unknown';
+      let flag = point.flag || 'Unknown';
+      let waterDepth = point.water_depth || 'Unknown';
+      let yearSunk = point.year_sunk || 'Unknown';
+
+      let marker = L.marker([point.lat, point.lon])
+      .bindPopup(
+        `<b>${wreckName}</b><br>
+        Lat: ${lat}<br>
+        Lon: ${lon}<br>
+        Vessel Type: ${vesselType}<br>
+        Flag: ${flag}<br>
+        Depth: ${waterDepth}<br>
+        Year: ${yearSunk}`
+      );
+    markers.addLayer(marker); // Add marker to cluster group
     }
   });
 
@@ -109,15 +125,15 @@ const addShipwrecks = (shipwreckLayer) => {
 // Add triangle polygons
 const addTriangles = (trianglesLayer) => {
   trianglesData.forEach(triangle => {
-    const polygonCoordinates = triangle.points.map(coord => [coord.latitude, coord.longitude]);
-    const polygon = L.polygon(polygonCoordinates, {
+    let polygonCoordinates = triangle.points.map(coord => [coord.latitude, coord.longitude]);
+    let polygon = L.polygon(polygonCoordinates, {
       color: 'red',
       weight: 2,
       fillOpacity: 0.3
     }).bindPopup(`<b>${triangle.name}</b>
-      <br>History: undefined`);
+      <br><b>Story:</b><br>${triangle.story}`);
 
-    trianglesLayer.addLayer(polygon);
+    trianglesLayer.addLayer(polygon); // Add polygon to triangles layer
   });
   console.log('Triangles successfully added!')
 };
@@ -144,7 +160,7 @@ const addHotspots = (hotspotsLayer) => {
 };
 
 // Function to reset and show all shipwrecks
-const resetShipwrecks = (shipwreckLayer) => {
+let resetShipwrecks = (shipwreckLayer) => {
 
   document.getElementById("Start Date").value = "";
   document.getElementById("End Date").value = "";
@@ -157,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const { map, baseMaps } = initializeMap();
   const { shipwrecks, triangles, hotspots } = createOverlays();
 
-  const overlays = {
+  let overlays = {
     "Shipwrecks": shipwrecks,
     "Triangles": triangles,
     "Hotspots": hotspots
