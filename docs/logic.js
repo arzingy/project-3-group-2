@@ -4,8 +4,8 @@ let trianglesData = null;
 let hotspotsData = null;
 
 // Initialize the map
-const initializeMap = () => {
-  const map = L.map('map').setView([0, 0], 2); // Center map at 0,0 with zoom level 2
+let initializeMap = () => {
+  let map = L.map('map').setView([0, 0], 2); // Center map at 0,0 with zoom level 2
 
   // Tile layers
   let satelliteLayer = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', {
@@ -41,10 +41,10 @@ const initializeMap = () => {
 };
 
 // Add overlays
-const createOverlays = () => {
-  const shipwrecks = new L.LayerGroup();
-  const triangles = new L.LayerGroup();
-  const hotspots = new L.LayerGroup();
+let createOverlays = () => {
+  let shipwrecks = new L.LayerGroup();
+  let triangles = new L.LayerGroup();
+  let hotspots = new L.LayerGroup();
 
   console.log('Overlays successfully created!')
   return { shipwrecks, triangles, hotspots };
@@ -74,7 +74,7 @@ let fetchData = async (url) => {
 };
 
 // Add shipwreck markers
-const addShipwrecks = (shipwreckLayer) => {
+let addShipwrecks = (shipwreckLayer) => {
 
   shipwreckLayer.clearLayers(); // Clear existing markers
 
@@ -118,7 +118,7 @@ const addShipwrecks = (shipwreckLayer) => {
 };
 
 // Add triangle polygons
-const addTriangles = (trianglesLayer) => {
+let addTriangles = (trianglesLayer) => {
   trianglesData.forEach(triangle => {
     let polygonCoordinates = triangle.points.map(coord => [coord.latitude, coord.longitude]);
     let polygon = L.polygon(polygonCoordinates, {
@@ -134,13 +134,13 @@ const addTriangles = (trianglesLayer) => {
 };
 
 // Add circle polygons
-const addHotspots = (hotspotsLayer) => {
+let addHotspots = (hotspotsLayer) => {
   hotspotsData.features.forEach(hotspot => {
-    const centerCoordinates = hotspot.properties.center_coordinates;
-    const areaName = hotspot.properties.area;
-    const wreckCount = hotspot.properties.wreck_count;
+    let centerCoordinates = hotspot.properties.center_coordinates;
+    let areaName = hotspot.properties.area;
+    let wreckCount = hotspot.properties.wreck_count;
 
-    const hotspotCircle = L.circle(centerCoordinates, {
+    let hotspotCircle = L.circle(centerCoordinates, {
       color: 'blue',
       weight: 2,
       fillOpacity: 0.3,
@@ -159,20 +159,68 @@ let resetShipwrecks = (shipwreckLayer) => {
 
   document.getElementById("Start Date").value = "";
   document.getElementById("End Date").value = "";
+  document.getElementById("submitButton").disabled = true;
+  submitBtn.style.backgroundColor = "gray";
+  document.getElementById("resetButton").disabled = true;
+  resetBtn.style.backgroundColor = "gray";
+  
+  shipwreckLayer.clearLayers(); // Clear existing markers
+  // shipwreckLayer.remove(); // Remove the layer from the map
 
+  //shipwreckLayer.clearLayers();
+  requestAnimationFrame(() => addShipwrecks(shipwreckLayer));
   addShipwrecks(shipwreckLayer);
 };
 
+// --------------------------- Toggling buttons based on input values (START) ---------------------------
+// Get references to inputs and buttons
+let startDateInput = document.getElementById('Start Date');
+let endDateInput = document.getElementById('End Date');
+let submitBtn = document.getElementById('submitButton');
+let resetBtn = document.getElementById('resetButton');
+
+// Function to toggle buttons
+function toggleButtons() {
+  let startFilled = startDateInput.value !== '';
+  let endFilled = endDateInput.value !== '';
+  
+  let enable = startFilled && endFilled;
+  
+  submitBtn.disabled = !enable;
+  resetBtn.disabled = !enable;
+
+
+}
+
+// Attach event listeners to both inputs
+startDateInput.addEventListener('input', toggleButtons);
+endDateInput.addEventListener('input', toggleButtons);
+// --------------------------- Toggling buttons based on input values (END) ---------------------------
+
 // Main logic to initialize buttons
 document.addEventListener("DOMContentLoaded", () => {
-  const { map, baseMaps } = initializeMap();
-  const { shipwrecks, triangles, hotspots } = createOverlays();
+  let { map, baseMaps } = initializeMap();
+  let { shipwrecks, triangles, hotspots } = createOverlays();
 
   let overlays = {
     "Shipwrecks": shipwrecks,
     "Triangles": triangles,
     "Hotspots": hotspots
   };
+
+  if (submitBtn.disabled==true) {
+    submitBtn.style.backgroundColor = "gray";
+  }
+  else {
+    submitBtn.style.backgroundColor = "#007BFF";
+  }
+
+  if (resetBtn.disabled==true) {
+    resetBtn.style.backgroundColor = "gray";
+  }
+  else {
+    resetBtn.style.backgroundColor = "#007BFF";
+  }
 
   // Add layer control
   L.control.layers(baseMaps, overlays).addTo(map);
