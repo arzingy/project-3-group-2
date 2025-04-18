@@ -58,15 +58,15 @@ let fetchData = async (url) => {
     let response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to load JSON file: ${url}`);
     let data = await response.json();
-    if (url == '../Resources/points.json') {
+    if (url == 'Resources/points.json') {
       shipwreckData = data;
       console.log('Shipwrecks data successfully fetched and stored!');
     }
-    else if (url == '../Resources/hotspots.json') {
+    else if (url == 'Resources/hotspots.json') {
       hotspotsData = data;
       console.log('Hotspots data successfully fetched and stored!')
     }
-    else if (url == '../Resources/circumstances.json') {
+    else if (url == 'Resources/circumstances.json') {
       circumstanceData = data;
       console.log('Circumstance data successfully fetched and stored!')
     }
@@ -253,19 +253,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add layer control
   L.control.layers(baseMaps, overlays).addTo(map);
 
-  fetchData('../Resources/triangles.json').then(() => {
+  fetchData('Resources/triangles.json').then(() => {
     if (trianglesData) {
       addTriangles(triangles);
     }
   })
 
-  fetchData('../Resources/circumstances.json').then(() => {
+  fetchData('Resources/circumstances.json').then(() => {
     if (circumstanceData) {
       addCircumstances(circumstances);
     }
   })
 
-  fetchData('../Resources/hotspots.json').then(() => {
+  fetchData('Resources/hotspots.json').then(() => {
     if (hotspotsData) {
       addHotspots(hotspots);
     }
@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // Fetch data only once
-  fetchData('../Resources/points.json').then(() => {
+  fetchData('Resources/points.json').then(() => {
     if (shipwreckData) {
       addShipwrecks(shipwrecks);
     }
