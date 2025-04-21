@@ -85,7 +85,7 @@ wreck_id,wreck_name,vessel_type,flag,obstruction_type,lat,lon,cargo,water_depth,
 65939,,Wellhead,,foul ground,-3.9659,10.53687,,90.0,
 65935,,Wellhead,,foul ground,-3.93992,10.36707,,95.0,
 65934,,Wellhead,,foul ground,-3.90442,10.62777,,83.0,
-65936,,Wellhead,,foul ground,-3.94498,10.88655,,40.0,
+659361,,Wellhead,,foul ground,-3.94498,10.88655,,40.0,
 65937,,Wellhead,,foul ground,-3.9602,10.90802,,37.0,
 65927,,Wellhead,,foul ground,-3.75225,10.47602,,65.0,
 65926,,Wellhead,,foul ground,-3.7383,10.43523,,65.0,
@@ -31585,7 +31585,7 @@ wreck_id,wreck_name,vessel_type,flag,obstruction_type,lat,lon,cargo,water_depth,
 81837,,,,,24.62515,52.80515,,11.0,
 42416,TARTUS,motor vessel,PA,,-17.275,38.8,,0.0,1982
 45108,,,,,15.86778,96.34663,,12.0,
-83361,MOOERA (STERN),,,,29.903,49.12317,,6.0,
+833611,MOOERA (STERN),,,,29.903,49.12317,,6.0,
 45179,,,,,13.1056,98.33318,,23.0,
 81839,,,,,24.10213,52.38445,,10.0,
 49162,,,,,5.2,115.16563,,17.0,
@@ -57944,7 +57944,7 @@ wreck_id,wreck_name,vessel_type,flag,obstruction_type,lat,lon,cargo,water_depth,
 15066,,,,,51.59207,1.06587,,7.0,
 7385,SARPFOS,steam ship,NO,,53.82518,-4.92612,coal,105.0,1918
 7342,BENHOLM,steam ship,GB,,53.50023,-4.00123,ballast,40.0,1898
-99955,,,,,57.60305,-4.03842,,11.0,
+999551,,,,,57.60305,-4.03842,,11.0,
 7284,MARQUESS OF BUTE,steam ship,GB,,53.38358,-4.68447,general and mixed goods,30.0,1910
 7203,COGNAC,steam ship,GB,,53.30025,-4.75113,"general and mixed goods,foodstuffs: liquid,natural fibres and materials in general: unprocessed and products",35.0,1898
 7212,HOLYHEAD,steam ship,GB,,53.30692,-4.70113,"personnel,general and mixed goods,animals (land & sea) and birds",0.0,1883
@@ -77697,7 +77697,7 @@ wreck_id,wreck_name,vessel_type,flag,obstruction_type,lat,lon,cargo,water_depth,
 6900,,steam ship,,,54.48543,2.07978,"general and mixed goods,non-ferrous elements and ores: unrefined and refined",16.0,
 29704,,Barrage/Barrier/Breakwater/Gabion/Mole,,,53.9585,10.88217,,2.0,
 44686,G 4-1,Wellhead,,,16.54138,82.465,,300.0,
-6899,OCEAN PRINCE,drill vessel/rig,GB,,54.47073,2.6393,,23.0,1968
+689911,OCEAN PRINCE,drill vessel/rig,GB,,54.47073,2.6393,,23.0,1968
 83191,,,,,53.90218,10.84297,,7.0,
 87182,LIBRA L,barge,,,25.22883,54.26933,,32.0,2017
 29709,"LIGHT PILE ""J""",Dolphins/Poles/Posts/Piles,,,53.916,10.86717,,7.0,
@@ -87658,7 +87658,7 @@ wreck_id,wreck_name,vessel_type,flag,obstruction_type,lat,lon,cargo,water_depth,
 99509,,,,foul ground,55.88662,-1.66907,,74.0,
 100889,,,,,56.0131,-3.42892,,4.0,
 59471,EX-HMSM H 11,submarine,GB,,55.8351,-1.80997,,68.0,1920
-99368,,,,,55.99937,-1.73073,,65.0,
+993681,,,,,55.99937,-1.73073,,65.0,
 4491,CHOICE,trawler,GB,,55.93843,-1.63377,ballast,66.0,1903
 99508,,,,,55.91667,-1.6792,,69.0,
 60553,,fishing vessel,,,55.85863,-1.56132,,63.0,
@@ -90740,7 +90740,7 @@ wreck_id,wreck_name,vessel_type,flag,obstruction_type,lat,lon,cargo,water_depth,
 101509,,,,foul area,22.32,113.84133,,5.0,
 103459,,,,,25.3131,54.67217,,16.0,
 68523,,fishing vessel,,,37.30767,10.9355,,210.0,
-97336,MV Lady Phoneta,,,,7.95,-58.81667,,7.0,
+973361,MV Lady Phoneta,,,,7.95,-58.81667,,7.0,
 47631,,sailing vessel,,,-2.68333,105.85833,,1.0,
 91288,,,,,22.14375,113.77333,,8.0,
 101917,,,,foul area,22.11453,113.8419,,16.0,
@@ -91703,7 +91703,7 @@ wreck_id,wreck_name,vessel_type,flag,obstruction_type,lat,lon,cargo,water_depth,
 47051,L2600,barge,,,11.925,114.68333,,4300.0,1977
 47088,,,,,11.4425,114.32167,,0.0,
 88579,QNG 94698 TS,fishing vessel,,,12.65,114.33333,,4000.0,
-65396,,,,,36.1572,-5.36628,,4.0,
+653961,,,,,36.1572,-5.36628,,4.0,
 47050,CHIANG CHIN,carrier,PA,,12.88333,113.28333,"general and mixed goods,cement",4300.0,1972
 47069,,,,,14.55833,114.18167,,4300.0,
 49296,TAIFUKU MARU,dredger,JP,,13.25,115.5,,4300.0,1977
@@ -93220,7 +93220,7 @@ wreck_id,wreck_name,vessel_type,flag,obstruction_type,lat,lon,cargo,water_depth,
 104691,,,,,37.9483,23.5509,,4.0,
 103309,,,,,37.95133,23.5905,,27.0,
 103307,,,,,37.95928,23.57235,,14.0,
-38878,BELLA MARIA,,,,37.9345,23.57113,,3.0,
+388781,BELLA MARIA,,,,37.9345,23.57113,,3.0,
 104682,,,,,37.95412,23.55885,,23.0,
 101031,,,,,37.9633,23.5525,,0.0,
 104685,,,,,37.93238,23.54215,,16.0,

@@ -199,30 +199,30 @@ let resetShipwrecks = (shipwreckLayer) => {
   addShipwrecks(shipwreckLayer);
 };
 
-// --------------------------- Toggling buttons based on input values (START) ---------------------------
-// Get references to inputs and buttons
-let startDateInput = document.getElementById('Start Date');
-let endDateInput = document.getElementById('End Date');
-let submitBtn = document.getElementById('submitButton');
-let resetBtn = document.getElementById('resetButton');
+// // --------------------------- Toggling buttons based on input values (START) ---------------------------
+// // Get references to inputs and buttons
+// let startDateInput = document.getElementById('Start Date');
+// let endDateInput = document.getElementById('End Date');
+// let submitBtn = document.getElementById('submitButton');
+// let resetBtn = document.getElementById('resetButton');
 
-// Function to toggle buttons
-function toggleButtons() {
-  let startFilled = startDateInput.value !== '';
-  let endFilled = endDateInput.value !== '';
+// // Function to toggle buttons
+// function toggleButtons() {
+//   let startFilled = startDateInput.value !== '';
+//   let endFilled = endDateInput.value !== '';
 
-  let enable = startFilled && endFilled;
+//   let enable = startFilled && endFilled;
 
-  submitBtn.disabled = !enable;
-  resetBtn.disabled = !enable;
+//   submitBtn.disabled = !enable;
+//   resetBtn.disabled = !enable;
 
 
-}
+// }
 
-// Attach event listeners to both inputs
-startDateInput.addEventListener('input', toggleButtons);
-endDateInput.addEventListener('input', toggleButtons);
-// --------------------------- Toggling buttons based on input values (END) ---------------------------
+// // Attach event listeners to both inputs
+// startDateInput.addEventListener('input', toggleButtons);
+// endDateInput.addEventListener('input', toggleButtons);
+// // --------------------------- Toggling buttons based on input values (END) ---------------------------
 
 // Main logic to initialize buttons
 document.addEventListener("DOMContentLoaded", () => {
